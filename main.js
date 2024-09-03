@@ -38,6 +38,8 @@ function createWindow() {
 app.on('ready', createWindow);
 
 app.whenReady().then(() => {
+	global.devMode = process.env.NODE_ENV === 'development';
+
 	ipcMain.on('open-devtools', () => {
 		mainWindow?.webContents.openDevTools({ mode: 'detach' });
 	});

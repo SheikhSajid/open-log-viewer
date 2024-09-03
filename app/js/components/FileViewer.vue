@@ -19,7 +19,7 @@
 				<v-icon :title="$t('scroll-to-end')" style="font-size: 24px">vertical_align_bottom</v-icon>
 			</v-btn>
 
-			<v-btn :depressed="scrollToEnd" :flat="!scrollToEnd" icon color="grey darken-1" @click="handleOpenDevTools">
+			<v-btn v-if="showDevToolsButton" flat icon color="grey darken-1" @click="handleOpenDevTools">
 				<v-icon title="DevTools" style="font-size: 24px">web</v-icon>
 			</v-btn>
 
@@ -39,7 +39,9 @@
 	const AceEditor = require("../aceEditor");
 	const UserPreferences = require("../userPreferences");
 
-    let userPreferences = new UserPreferences();
+  const remote = window.electron.remote;
+
+	let userPreferences = new UserPreferences();
 
 	let tail;
 	let viewer;
@@ -57,7 +59,8 @@
 				logLevelsSelected: this.getLogLevelsToShow(),
 				height: this.calcHeight(),
 				scrollToEnd: false,
-				currentFileSettings: this.fileSettings
+				currentFileSettings: this.fileSettings,
+				showDevToolsButton: remote.getGlobal('devMode')
 			}
 		},
 		mounted: function() {

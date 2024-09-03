@@ -119,18 +119,17 @@
 			}
 
 			document.getElementById("drag-and-drop-zone").ondrop = (e) => {
-            	e.preventDefault();
+        e.preventDefault();
 
-            	for (let file of e.dataTransfer.files) {
+				for (let file of e.dataTransfer.files) {
 					new OpenNewFileCommand(
 						file.path, 
 						this.tabs, 
 						userPreferences
-					)
-					.execute();
-            	}
+					).execute();
+        }
             
-            	return false;
+        return false;
 			};
 		},
 		methods: {

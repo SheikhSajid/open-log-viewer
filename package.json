@@ -66,7 +66,6 @@
     "electron-store": "5.1.1",
     "lodash": "4.17.15",
     "material-design-icons-iconfont": "5.0.1",
-    "primevue": "^2.10.4",
     "typeface-roboto": "0.0.75",
     "vue": "2.6.11",
     "vue-color": "2.7.1",

@@ -8,7 +8,7 @@
 				<v-btn flat icon @click.stop.prevent="closeTab(i)" v-show="showCloseButton()">
 					<v-icon>close</v-icon>
 				</v-btn>
-		    </v-tab>
+			</v-tab>
 
 			<v-btn flat icon color="grey darken-1" @click="newTab">
             	<v-icon>add</v-icon>

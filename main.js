@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const { program } = require('commander');
 const path = require('path');
 
@@ -17,15 +17,13 @@ function createWindow() {
 		width: 1024, 
 		height: 768,
 		webPreferences: {
-			preload: path.join(__dirname, "preload.js")
+			preload: path.join(__dirname, "preload.js"),
+			nodeIntegration: true,
+			contextIsolation: false
 		}
 	});
 
 	mainWindow.loadFile("./app/index.html");
-
-	if (process.env.NODE_ENV === "development") {
-		mainWindow.webContents.openDevTools();
-	}
 
 	mainWindow.on('closed', () => {
 		// Dereference the window object, usually you would store windows
@@ -38,6 +36,12 @@ function createWindow() {
 }
 
 app.on('ready', createWindow);
+
+app.whenReady().then(() => {
+	ipcMain.on('open-devtools', () => {
+		mainWindow?.webContents.openDevTools({ mode: 'detach' });
+	});
+});
 
 app.on('activate', () => {
 	// On OS X it's common to re-create a window in the app when the

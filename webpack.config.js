@@ -10,6 +10,7 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  target: 'electron-renderer',
   resolve: {
     extensions: ['.js', '.vue'],
     alias: {

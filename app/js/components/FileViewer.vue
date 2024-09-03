@@ -19,6 +19,10 @@
 				<v-icon :title="$t('scroll-to-end')" style="font-size: 24px">vertical_align_bottom</v-icon>
 			</v-btn>
 
+			<v-btn :depressed="scrollToEnd" :flat="!scrollToEnd" icon color="grey darken-1" @click="handleOpenDevTools">
+				<v-icon title="DevTools" style="font-size: 24px">web</v-icon>
+			</v-btn>
+
 			<v-btn flat icon color="grey darken-1" @click="settingsButtonClicked">
 				<v-icon :title="$t('global-settings')" style="font-size: 24px">settings</v-icon>
 			</v-btn>
@@ -29,6 +33,8 @@
 </template>
 
 <script>
+	const { ipcRenderer } = require('electron');
+
 	const Tail = require("../tail");
 	const AceEditor = require("../aceEditor");
 	const UserPreferences = require("../userPreferences");
@@ -155,6 +161,10 @@
 				});
 				
 				tail.start().catch(error => this.$emit('fileNotFoundError', {file: this.file}));
+			},
+			handleOpenDevTools() {
+				console.log("Opening DevTools");
+				ipcRenderer.send('open-devtools');
 			},
 			handleResize() {
 				this.height = this.calcHeight();
